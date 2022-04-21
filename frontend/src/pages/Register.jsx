@@ -26,9 +26,8 @@ const Register = () => {
     if (isError) {
       toast.error(message);
     }
-
-    //redirect when logged in
-    if (isSuccess || user) {
+    // redirect when logged in
+    if (isSuccess && user) {
       Navigate("/");
     }
     dispatch(reset());
@@ -51,7 +50,7 @@ const Register = () => {
         email,
         password,
       };
-      console.log(userData);
+
       dispatch(setUserRegister(userData));
     }
   };
