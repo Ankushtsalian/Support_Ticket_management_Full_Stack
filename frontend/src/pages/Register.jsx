@@ -46,7 +46,12 @@ const Register = () => {
     if (password !== password2) {
       toast.error("password do not match");
     } else {
-      const userData = { name, email, password };
+      const userData = {
+        name,
+        email,
+        password,
+      };
+      console.log(userData);
       dispatch(setUserRegister(userData));
     }
   };
