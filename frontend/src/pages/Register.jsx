@@ -31,8 +31,8 @@ const Register = () => {
     if (isSuccess && user) {
       Navigate("/");
     }
-    // dispatch(reset());
-  }, [isError, isSuccess, user, Navigate, dispatch, message]);
+    dispatch(reset());
+  }, [isError, isSuccess, user, dispatch, Navigate, message]);
 
   const onChange = (event) => {
     const { name, value } = event.target;
