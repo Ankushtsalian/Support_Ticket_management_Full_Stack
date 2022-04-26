@@ -29,12 +29,13 @@ const NewTicket = () => {
       <section className="form">
         <div className="form-group">
           <label htmlFor="name">Customer Name</label>
-          <input type="text" className="form-control" value={name} />
+          <input type="text" className="form-control" value={name} disabled />
         </div>
         <div className="form-group">
           <label htmlFor="email">Customer Email</label>
-          <input type="text" className="form-control" value={email} />
+          <input type="text" className="form-control" value={email} disabled />
         </div>
+
         <form onSubmit={onSubmit}>
           <div className="form-group">
             <label htmlFor="product">Product</label>
@@ -50,6 +51,7 @@ const NewTicket = () => {
               <option value="iPad">iPad</option>
             </select>
           </div>
+
           <div className="form-group">
             <label htmlFor="decription">Description of the issue</label>
             <textarea
@@ -61,6 +63,7 @@ const NewTicket = () => {
               onChange={setDescriptionOfissue}
             ></textarea>
           </div>
+
           <div className="form-group">
             <button className="btn btn-block">Submit</button>
           </div>
