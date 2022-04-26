@@ -44,11 +44,10 @@ const getTicket = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("Ticket not found");
   }
-  console.log("ticket.user.toString : " + ticket.user.toString());
-  console.log(" req.user.id : " + req.user.id);
+
   if (ticket.user.toString() !== req.user.id) {
     res.status(401);
-    throw new Error("user not found");
+    throw new Error("Not Authorized");
   }
 
   res.status(200).json(ticket);
@@ -84,4 +83,78 @@ const createTicket = asyncHandler(async (req, res) => {
   res.status(201).json(ticket);
 });
 
-module.exports = { getTickets, createTicket, getTicket };
+//@desc     Delete  user ticket
+//@route  DELETE  /api/tickets/:id
+//@access   private
+
+const deleteTicket = asyncHandler(async (req, res) => {
+  //Get user using id and JWT
+  const user = await User.findById(req.user.id);
+
+  //Check if user exist
+  if (!user) {
+    res.status(401);
+    throw new Error("user not found");
+  }
+
+  //if exist find single userId using params :id in Ticket
+  const ticket = await Ticket.findById(req.params.id);
+
+  if (!ticket) {
+    res.status(404);
+    throw new Error("Ticket not found");
+  }
+
+  if (ticket.user.toString() !== req.user.id) {
+    res.status(401);
+    throw new Error("Not Authorized");
+  }
+
+  await ticket.remove();
+
+  res.status(200).json({ success: true });
+});
+
+//@desc     Update user ticket
+//@route  PUT  /api/tickets/:id
+//@access   private
+
+const updateTicket = asyncHandler(async (req, res) => {
+  //Get user using id and JWT
+  const user = await User.findById(req.user.id);
+
+  //Check if user exist
+  if (!user) {
+    res.status(401);
+    throw new Error("user not found");
+  }
+
+  //if exist find single userId using params :id in Ticket
+  const ticket = await Ticket.findById(req.params.id);
+
+  if (!ticket) {
+    res.status(404);
+    throw new Error("Ticket not found");
+  }
+
+  if (ticket.user.toString() !== req.user.id) {
+    res.status(401);
+    throw new Error("Not Authorized");
+  }
+
+  const updatedTicket = await Ticket.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true }
+  );
+
+  res.status(200).json(updatedTicket);
+});
+
+module.exports = {
+  getTickets,
+  createTicket,
+  getTicket,
+  deleteTicket,
+  updateTicket,
+};
