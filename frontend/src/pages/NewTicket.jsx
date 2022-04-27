@@ -1,16 +1,39 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { createTickets, reset } from "../features/tickets/ticketSlice";
+import Spinner from "../components/Spinner";
 
 const NewTicket = () => {
   const { user } = useSelector((state) => state.auth);
+  const { isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.ticket
+  );
 
   const [name] = useState(user.name);
   const [email] = useState(user.email);
   const [product, setProduct] = useState("");
   const [description, setDescription] = useState("");
 
+  const dispatch = useDispatch();
+  const Navigate = useNavigate();
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+
+    if (isSuccess) {
+      dispatch(reset());
+      Navigate("/tickets");
+    }
+    dispatch(reset());
+  }, [Navigate, dispatch, isError, isSuccess, message]);
+
   const onSubmit = (e) => {
     e.preventDefault();
+    dispatch(createTickets({ product, description }));
   };
 
   const setProducts = (e) => {
@@ -19,6 +42,11 @@ const NewTicket = () => {
   const setDescriptionOfissue = (e) => {
     setDescription(e.target.value);
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <>
       <section className="heading">
