@@ -34,23 +34,21 @@ export const ticketSlice = createSlice({
   name: "ticket",
   initialState,
   reducers: {
-    reset: (state) => initialState,
+    reset: () => initialState,
   },
   extraReducers: (builder) => {
     builder
       .addCase(createTickets.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(createTickets.fulfilled, (state, action) => {
+      .addCase(createTickets.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
-        //   state.user = action.payload;
       })
       .addCase(createTickets.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-        //   state.user = null;
       });
   },
 });
