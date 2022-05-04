@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 const NoteItem = ({ note }) => {
   const { user } = useSelector((state) => state.auth);
 
