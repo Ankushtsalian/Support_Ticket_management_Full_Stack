@@ -147,6 +147,7 @@ const updateTicket = asyncHandler(async (req, res) => {
     req.body,
     { new: true }
   );
+  c;
 
   res.status(200).json(updatedTicket);
 });
