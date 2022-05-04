@@ -3,9 +3,9 @@ import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   getSingleUserTicket,
-  reset,
   closeUserTicket,
 } from "../features/tickets/ticketSlice";
+import { getNotes, reset as notesReset } from "../features/notes/noteSlice";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
 import { toast } from "react-toastify";
@@ -13,6 +13,10 @@ import { toast } from "react-toastify";
 const Ticket = () => {
   const { isLoading, isSuccess, ticket, isError, message } = useSelector(
     (state) => state.ticket
+  );
+
+  const { isLoading: notesIsLoading, notes } = useSelector(
+    (state) => state.notes
   );
 
   const dispatch = useDispatch();
@@ -26,6 +30,7 @@ const Ticket = () => {
     }
 
     dispatch(getSingleUserTicket(ticketId));
+    dispatch(getNotes(ticketId));
     //eslint-disable-next-line
   }, [isError, message, ticketId]);
 
