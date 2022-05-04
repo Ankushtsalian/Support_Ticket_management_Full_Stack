@@ -39,7 +39,7 @@ const getSingleTicket = async (ticketId, token) => {
   return response.data;
 };
 
-//close tickets
+//close tickets by using put to update status ticket
 const closeTicket = async (ticketId, token) => {
   const config = {
     headers: {
