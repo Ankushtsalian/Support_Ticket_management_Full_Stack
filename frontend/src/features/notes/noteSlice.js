@@ -17,6 +17,7 @@ export const getNotes = createAsyncThunk(
   async (ticketId, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
+      // console.log(await getSingleNote(ticketId, token))
       return await getSingleNote(ticketId, token);
     } catch (error) {
       const message =
