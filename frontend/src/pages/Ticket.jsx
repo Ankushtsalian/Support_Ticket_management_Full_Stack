@@ -7,7 +7,7 @@ import {
 } from "../features/tickets/ticketSlice";
 import {
   getNotes,
-  reset as notesReset,
+  // reset as notesReset,
   createNote,
 } from "../features/notes/noteSlice";
 import BackButton from "../components/BackButton";
@@ -35,7 +35,7 @@ const Ticket = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [noteText, setNoteText] = useState("");
 
-  const { isLoading, isSuccess, ticket, isError, message } = useSelector(
+  const { isLoading, ticket, isError, message } = useSelector(
     (state) => state.ticket
   );
 
