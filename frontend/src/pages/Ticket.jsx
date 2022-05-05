@@ -5,7 +5,11 @@ import {
   getSingleUserTicket,
   closeUserTicket,
 } from "../features/tickets/ticketSlice";
-import { getNotes, reset as notesReset } from "../features/notes/noteSlice";
+import {
+  getNotes,
+  reset as notesReset,
+  createNote,
+} from "../features/notes/noteSlice";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
 import { toast } from "react-toastify";
@@ -64,7 +68,7 @@ const Ticket = () => {
 
   const onNoteSubmit = (e) => {
     e.preventDefault();
-    console.log("Submit");
+    dispatch(createNote({ noteText, ticketId }));
     closeModal();
   };
   //Open/close Modal
